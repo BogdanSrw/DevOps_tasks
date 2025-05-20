@@ -1,0 +1,41 @@
+---
+- name: Install and set up nginx
+  hosts: localhost
+  become: yes
+  vars:
+    nginx_listen_port: 80
+    nginx_server_name: localhost
+    nginx_conf_path: /etc/nginx/nginx.conf
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: set up nginx
+      template:
+        src: nginx.conf.j2
+        dest: "{{ nginx_conf_path }}"
+        owner: root
+        group: root
+        mode: '0644'
+      notify: restart nginx
+
+    - name: running nginx
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: checking port {{ nginx_listen_port }}
+      wait_for:
+        port: "{{ nginx_listen_port }}"
+        timeout: 10
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+

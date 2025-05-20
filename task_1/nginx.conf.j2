@@ -1,0 +1,13 @@
+events {}
+
+http {
+    server {
+        listen {{ nginx_listen_port }};
+        server_name {{ nginx_server_name }};
+
+        location / {
+            root /var/www/html;
+            index index.html;
+        }
+    }
+}
