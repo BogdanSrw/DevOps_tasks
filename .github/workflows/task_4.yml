@@ -29,12 +29,12 @@ jobs:
         run: docker-compose build
 
       - name: Save image as an artifact
-        run: docker save task_2_nginx_1 | gzip > save task_2_nginx_1.tar.gz
+        run: docker save task_2_nginx_1 | gzip > task_2_nginx_1.tar.gz
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: nginx-app
-          path: save task_2_nginx_1.tar.gz
+          path: task_2_nginx_1.tar.gz
 
 
