@@ -3,6 +3,7 @@ version: '3.8'
 services:
   nginx:
     build: .
+    image: task_2_nginx
     ports:
       - "80:80"
       - "443:443"
