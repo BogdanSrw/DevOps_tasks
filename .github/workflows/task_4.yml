@@ -21,13 +21,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Docker Compose
-         run: sudo apt-get update && sudo apt-get install -y docker-compose
+        run: sudo apt-get update && sudo apt-get install -y docker-compose
 
       - name: Building image
-         run: docker-compose build
+        run: docker-compose build
          
       - name: Save image as an artifact
-         run: docker save task_2_nginx_1 | gzip > task_2_nginx_1.tar.gz
+        run: docker save task_2_nginx_1 | gzip > task_2_nginx_1.tar.gz
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
