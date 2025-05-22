@@ -1,0 +1,28 @@
+name: Task 4, Creating pipeline
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Compose
+         run: sudo apt-get update && sudo apt-get install -y docker-compose
+
+      - name: Building image
+         run: docker-compose build
+         
+      - name: Save image as an artifact
+         run: docker save task_2_nginx_1 | gzip > task_2_nginx_1.tar.gz
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nginx-app
+          path: task_2_nginx_1.tar.gz
+
