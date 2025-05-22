@@ -2,11 +2,20 @@ name: Task 4, Creating pipeline
 
 on:
   push:
+    paths:
+      - 'task_2/**'
+    pull request:
+      paths:
+        - 'task_2/**'
     branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: task_2
+
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
